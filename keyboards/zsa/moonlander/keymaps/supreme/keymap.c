@@ -222,6 +222,7 @@ bool rgb_matrix_indicators_user(void) {
         return false;
     }
     if (keyboard_config.disable_layer_led) {
+        // Layer specific colors are disabled.
         return false;
     }
     switch (biton32(layer_state)) {
