@@ -35,6 +35,51 @@ uint8_t dance_step(tap_dance_state_t *state) {
     return MORE_TAPS;
 }
 
+// Implementation
+// ==============
+
+enum tap_dance_codes {
+    LAYER_1,
+    LAYER_2,
+};
+
+static tap dance_state[2]; // as many as the entries in `tap_dance_codes`
+
+void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
+    dance_state[0].step = dance_step(state);
+    switch (dance_state[0].step) {
+        case DOUBLE_TAP:
+            layer_move(1);
+            break;
+    }
+}
+
+void dance_layer_1_reset(tap_dance_state_t *state, void *user_data) {
+    wait_ms(10); // don't know why
+    switch (dance_state[0].step) {}
+    dance_state[0].step = 0;
+}
+
+void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
+    dance_state[1].step = dance_step(state);
+    switch (dance_state[1].step) {
+        case DOUBLE_TAP:
+            layer_move(2);
+            break;
+    }
+}
+
+void dance_layer_2_reset(tap_dance_state_t *state, void *user_data) {
+    wait_ms(10); // don't know why
+    switch (dance_state[1].step) {}
+    dance_state[1].step = 0;
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    [LAYER_1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_1_finished, dance_layer_1_reset),
+    [LAYER_2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_2_finished, dance_layer_2_reset),
+};
+
 //  ____   ____ ____
 // |  _ \ / ___| __ )
 // | |_) | |  _|  _ \.
