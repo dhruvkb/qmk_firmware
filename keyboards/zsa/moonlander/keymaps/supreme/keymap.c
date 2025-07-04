@@ -206,7 +206,9 @@ void handle_osm_color(void) {
         rgb_matrix_set_color(70, COL_GRN); // right thumb cluster
     }
     if (mods & MOD_MASK_GUI) {
-        rgb_matrix_set_color(33, COL_GRN);
+        // Cmd ⌘ is present in two locations to enable key combinations with arrows.
+        rgb_matrix_set_color(33, COL_GRN); // left thumb cluster
+        rgb_matrix_set_color(60, COL_GRN); // column 10
     }
     if (mods & MOD_MASK_CTRL) {
         rgb_matrix_set_color(34, COL_GRN);
@@ -298,7 +300,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,             KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          NO_OSM,        /* row 2 */ KC_EQL,        KC_Y,          KC_U,          KC_I,          KC_O,          KC_P,          KC_BSLS,
         CW_TOGG,            KC_A,          KC_S,          KC_D,          KC_F,          KC_G,          KC_ESC,        /* row 3 */ KC_DEL,        KC_H,          KC_J,          KC_K,          KC_L,          KC_SCLN,       KC_QUOT,
         OSM(MOD_LSFT),      KC_Z,          KC_X,          KC_C,          KC_V,          KC_B,                         /* row 4 */                KC_N,          KC_M,          KC_COMM,       KC_DOT,        KC_UP,         KC_ENT,
-        OSM(MOD_LALT),      KC_LPRN,       KC_RPRN,       KC_LBRC,       KC_RBRC,       /* orange → */ RAYCAST,       /* row 5 */ WIN_MGMT,      /* ← orange */ _______,       KC_SLSH,       KC_LEFT,       KC_DOWN,       KC_RIGHT,
+        OSM(MOD_LALT),      KC_LPRN,       KC_RPRN,       KC_LBRC,       KC_RBRC,       /* orange → */ RAYCAST,       /* row 5 */ WIN_MGMT,      /* ← orange */ OSM(MOD_LGUI), KC_SLSH,       KC_LEFT,       KC_DOWN,       KC_RIGHT,
                                                                          KC_SPC,        OSM(MOD_LGUI), OSM(MOD_LCTL), /* thumb */ OSM(MOD_LALT), OSM(MOD_LSFT), KC_BSPC
     ),
     [1] = LAYOUT_moonlander(
