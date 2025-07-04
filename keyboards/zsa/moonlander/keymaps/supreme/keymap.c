@@ -215,3 +215,61 @@ bool rgb_matrix_indicators_user(void) {
 // Layer 1
 #define DESK_UP LALT(LGUI(LCTL(KC_UP))) // Opt ⌥ + Cmd ⌘ + Ctrl ⌃ + Up Arrow
 #define DESK_DOWN LALT(LGUI(LCTL(KC_DOWN))) // Opt ⌥ + Cmd ⌘ + Ctrl ⌃ + Down Arrow
+
+// Custom
+// ======
+
+enum custom_keycodes {
+    RGB_SLD = SAFE_RANGE,
+    NO_OSM,
+};
+
+// Handle custom key presses.
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case RGB_SLD:
+            if (rawhid_state.rgb_control) {
+                // An external application is controlling the RGB.
+                return false;
+            }
+            if (record->event.pressed) {
+                rgblight_mode(1);
+            }
+            return false;
+        case NO_OSM:
+            if (record->event.pressed) {
+                // Clear all active one-shot mods.
+                clear_oneshot_mods();
+            }
+            return false;
+    }
+    return true;
+}
+
+// TODO: Update keycodes for mouse keys when ZSA's fork of QMK is updated.
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT_moonlander(
+        KC_GRV,             KC_1,          KC_2,          KC_3,          KC_4,          KC_5,          TD(LAYER_1),   /* row 1 */ TD(LAYER_2),   KC_6,          KC_7,          KC_8,          KC_9,          KC_0,          KC_MINS,
+        KC_TAB,             KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          NO_OSM,        /* row 2 */ KC_EQL,        KC_Y,          KC_U,          KC_I,          KC_O,          KC_P,          KC_BSLS,
+        CW_TOGG,            KC_A,          KC_S,          KC_D,          KC_F,          KC_G,          KC_ESC,        /* row 3 */ KC_DEL,        KC_H,          KC_J,          KC_K,          KC_L,          KC_SCLN,       KC_QUOT,
+        OSM(MOD_LSFT),      KC_Z,          KC_X,          KC_C,          KC_V,          KC_B,                         /* row 4 */                KC_N,          KC_M,          KC_COMM,       KC_DOT,        KC_UP,         KC_ENT,
+        OSM(MOD_LALT),      KC_LPRN,       KC_RPRN,       KC_LBRC,       KC_RBRC,       /* orange → */ RAYCAST,       /* row 5 */ WIN_MGMT,      /* ← orange */ _______,       KC_SLSH,       KC_LEFT,       KC_DOWN,       KC_RIGHT,
+                                                                         KC_SPC,        OSM(MOD_LGUI), OSM(MOD_LCTL), /* thumb */ OSM(MOD_LALT), OSM(MOD_LSFT), KC_BSPC
+    ),
+    [1] = LAYOUT_moonlander(
+        _______,            KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,         TO(0),         /* row 1 */ TO(0),         KC_F6,         KC_F7,         KC_F8,         KC_F9,         KC_F10,        _______,
+        _______,            _______,       _______,       _______,       KC_VOLU,       KC_F15,        _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        _______,            _______,       _______,       _______,       KC_VOLD,       KC_F14,        _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        _______,            _______,       _______,       _______,       KC_MUTE,       _______,                      /* row 4 */                _______,       _______,       _______,       _______,       _______,       _______,
+        _______,            _______,       _______,       _______,       _______,       /* orange → */ _______,       /* row 5 */ _______,       /* ← orange */ _______,       _______,       KC_MPRV,       KC_MPLY,       KC_MNXT,
+                                                                         _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
+    ),
+    [2] = LAYOUT_moonlander(
+        AU_TOGG,            MU_TOGG,       _______,       _______,       _______,       _______,       TO(0),         /* row 1 */ TO(0),         _______,       _______,       _______,       _______,       _______,       QK_BOOT,
+        TOGGLE_LAYER_COLOR, _______,       RGB_SPI,       RGB_HUI,       RGB_SAI,       RGB_VAI,       _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        RGB_TOG,            _______,       RGB_SPD,       RGB_HUD,       RGB_SAD,       RGB_VAD,       _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        RGB_SLD,            _______,       _______,       _______,       _______,       _______,                      /* row 4 */                _______,       _______,       KC_WH_U,       KC_BTN1,       KC_MS_U,       KC_BTN2,
+        RGB_MODE_FORWARD,   _______,       _______,       _______,       _______,       /* orange → */ DESK_UP,       /* row 5 */ DESK_DOWN,     /* ← orange */ _______,       KC_WH_D,       KC_MS_L,       KC_MS_D,       KC_MS_R,
+                                                                         _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
+    ),
+};
