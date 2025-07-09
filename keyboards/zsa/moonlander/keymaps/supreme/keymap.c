@@ -128,7 +128,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         /* column  6    */ {COL_AQU}, {COL_YLO}, {COL_YLO}, {COL_BLK},
         /* column  7    */ {COL_GRN}, {COL_BLK}, {COL_BLK},
         /* left thumb   */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* left orange  */ {COL_BLK},
+        /* left orange  */ {COL_WHT},
         /* column 14    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
         /* column 13    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
         /* column 12    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
@@ -137,7 +137,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
         /* column  9    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK},
         /* column  8    */ {COL_RED}, {COL_BLK}, {COL_BLK},
         /* right thumb  */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* right orange */ {COL_BLK}
+        /* right orange */ {COL_WHT}
     },
     [2] = {
         /* column  1    */ {COL_CTR}, {COL_VIO}, {COL_VIO}, {COL_BLK}, {COL_VIO},
@@ -246,6 +246,24 @@ bool rgb_matrix_indicators_user(void) {
     return true;
 }
 
+//  ____                                     _
+// |  _ \ __ _ ___ _____      _____  _ __ __| |___
+// | |_) / _` / __/ __\ \ /\ / / _ \| '__/ _` / __|
+// |  __/ (_| \__ \__ \\ V  V / (_) | | | (_| \__ \.
+// |_|   \__,_|___/___/ \_/\_/ \___/|_|  \__,_|___/
+
+#ifdef OS_PASSWORD
+    static const char os_password[] PROGMEM = OS_PASSWORD;
+#else
+    #error "OS_PASSWORD must be defined in environment variables."
+#endif
+
+#ifdef OP_PASSWORD
+    static const char op_password[] PROGMEM = OP_PASSWORD;
+#else
+    #error "OP_PASSWORD must be defined in environment variables."
+#endif
+
 //  _  __
 // | |/ /___ _   _ _ __ ___   __ _ _ __
 // | ' // _ \ | | | '_ ` _ \ / _` | '_ \.
@@ -270,6 +288,8 @@ bool rgb_matrix_indicators_user(void) {
 enum custom_keycodes {
     RGB_SLD = SAFE_RANGE,
     NO_OSM,
+    OS_PASS,
+    OP_PASS,
 };
 
 // Handle custom key presses.
@@ -288,6 +308,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // Clear all active one-shot mods.
                 clear_oneshot_mods();
+            }
+            return false;
+        case OS_PASS:
+            if (record->event.pressed) {
+                SEND_STRING(os_password);
+                // Press enter to submit the password.
+                SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case OP_PASS:
+            if (record->event.pressed) {
+                SEND_STRING(op_password);
+                // Press enter to submit the password.
+                SEND_STRING(SS_TAP(X_ENTER));
             }
             return false;
     }
@@ -309,7 +343,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,            _______,       _______,       _______,       KC_VOLU,       KC_F15,        _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
         _______,            _______,       _______,       _______,       KC_VOLD,       KC_F14,        _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
         _______,            _______,       _______,       _______,       KC_MUTE,       _______,                      /* row 4 */                _______,       _______,       _______,       _______,       _______,       _______,
-        _______,            _______,       _______,       _______,       _______,       /* orange → */ _______,       /* row 5 */ _______,       /* ← orange */ _______,       _______,       KC_MPRV,       KC_MPLY,       KC_MNXT,
+        _______,            _______,       _______,       _______,       _______,       /* orange → */ OS_PASS,       /* row 5 */ OP_PASS,       /* ← orange */ _______,       _______,       KC_MPRV,       KC_MPLY,       KC_MNXT,
                                                                          _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
     [2] = LAYOUT_moonlander(
