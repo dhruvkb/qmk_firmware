@@ -181,10 +181,8 @@ void handle_caps_word_color(void) {
     }
 }
 
-// Color the one-shot modifier keys based on whether they are active.
-void handle_osm_color(void) {
-    uint8_t mods = get_oneshot_mods();
-
+// Color the modifier keys based on whether they are active.
+void handle_mod_color(uint8_t mods, uint8_t r, uint8_t g, uint8_t b) {
     // Ctrl ⌃ + Cmd ⌘ is used as the Raycast shortcut, mapped to the left orange key.
     if (mods & MOD_MASK_CTRL && mods & MOD_MASK_GUI && !(mods & MOD_MASK_ALT || mods & MOD_MASK_SHIFT)) {
         rgb_matrix_set_color(35, COL_WHT);
@@ -197,21 +195,21 @@ void handle_osm_color(void) {
     }
     if (mods & MOD_MASK_SHIFT) {
         // Shift ⇧ is present in two locations to afford right handed mouse usage.
-        rgb_matrix_set_color(3, COL_GRN);  // column 1
-        rgb_matrix_set_color(69, COL_GRN); // right thumb cluster
+        rgb_matrix_set_color(3, r, g, b);  // column 1
+        rgb_matrix_set_color(69, r, g, b); // right thumb cluster
     }
     if (mods & MOD_MASK_ALT) {
         // Opt ⌥ is present in two locations to afford right handed mouse usage.
-        rgb_matrix_set_color(4, COL_GRN);  // column 1
-        rgb_matrix_set_color(70, COL_GRN); // right thumb cluster
+        rgb_matrix_set_color(4, r, g, b);  // column 1
+        rgb_matrix_set_color(70, r, g, b); // right thumb cluster
     }
     if (mods & MOD_MASK_GUI) {
         // Cmd ⌘ is present in two locations to enable key combinations with arrows.
-        rgb_matrix_set_color(33, COL_GRN); // left thumb cluster
-        rgb_matrix_set_color(60, COL_GRN); // column 10
+        rgb_matrix_set_color(33, r, g, b); // left thumb cluster
+        rgb_matrix_set_color(60, r, g, b); // column 10
     }
     if (mods & MOD_MASK_CTRL) {
-        rgb_matrix_set_color(34, COL_GRN);
+        rgb_matrix_set_color(34, r, g, b);
     }
 }
 
@@ -241,7 +239,8 @@ bool rgb_matrix_indicators_user(void) {
     }
 
     handle_caps_word_color();
-    handle_osm_color();
+    handle_mod_color(get_oneshot_mods(), COL_GRN);
+    handle_mod_color(get_mods(), COL_BLU);
 
     return true;
 }
