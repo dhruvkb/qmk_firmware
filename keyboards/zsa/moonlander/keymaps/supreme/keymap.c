@@ -186,12 +186,12 @@ void handle_osm_color(void) {
     uint8_t mods = get_oneshot_mods();
 
     // Ctrl ⌃ + Cmd ⌘ is used as the Raycast shortcut, mapped to the left orange key.
-    if (mods & MOD_MASK_CTRL && mods & MOD_MASK_GUI) {
+    if (mods & MOD_MASK_CTRL && mods & MOD_MASK_GUI && !(mods & MOD_MASK_ALT || mods & MOD_MASK_SHIFT)) {
         rgb_matrix_set_color(35, COL_WHT);
         return; // Do not light up the individual modifier keys.
     }
     // Ctrl ⌃ + Opt ⌥ is used for window management, mapped to the right orange key.
-    if (mods & MOD_MASK_CTRL && mods & MOD_MASK_ALT) {
+    if (mods & MOD_MASK_CTRL && mods & MOD_MASK_ALT && !(mods & MOD_MASK_GUI || mods & MOD_MASK_SHIFT)) {
         rgb_matrix_set_color(71, COL_WHT);
         return; // Do not light up the individual modifier keys.
     }
