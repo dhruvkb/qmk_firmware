@@ -286,7 +286,7 @@ bool rgb_matrix_indicators_user(void) {
 
 enum custom_keycodes {
     RGB_SLD = SAFE_RANGE,
-    NO_OSM,
+    NO_MOD,
     OS_PASS,
     OP_PASS,
     BR_ROUND,
@@ -307,10 +307,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 rgblight_mode(1);
             }
             return false;
-        case NO_OSM:
+        case NO_MOD:
             if (record->event.pressed) {
-                // Clear all active one-shot mods.
-                clear_oneshot_mods();
+                clear_oneshot_mods(); // Clear all active one-shot mods.
+                clear_mods(); // Clear all active regular mods.
+                send_keyboard_report();
             }
             return false;
         case OS_PASS:
@@ -355,7 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
         KC_GRV,             KC_1,          KC_2,          KC_3,          KC_4,          KC_5,          TD(LAYER_1),   /* row 1 */ TD(LAYER_2),   KC_6,          KC_7,          KC_8,          KC_9,          KC_0,          KC_MINS,
-        KC_TAB,             KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          NO_OSM,        /* row 2 */ KC_EQL,        KC_Y,          KC_U,          KC_I,          KC_O,          KC_P,          KC_BSLS,
+        KC_TAB,             KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          NO_MOD,        /* row 2 */ KC_EQL,        KC_Y,          KC_U,          KC_I,          KC_O,          KC_P,          KC_BSLS,
         CW_TOGG,            KC_A,          KC_S,          KC_D,          KC_F,          KC_G,          KC_ESC,        /* row 3 */ KC_DEL,        KC_H,          KC_J,          KC_K,          KC_L,          KC_SCLN,       KC_QUOT,
         OSM(MOD_LSFT),      KC_Z,          KC_X,          KC_C,          KC_V,          KC_B,                         /* row 4 */                KC_N,          KC_M,          KC_COMM,       KC_DOT,        KC_UP,         KC_ENT,
         OSM(MOD_LALT),      BR_ROUND,      BR_CURLY,      BR_SQUAR,      BR_ANGLE,      /* orange → */ RAYCAST,       /* row 5 */ WIN_MGMT,      /* ← orange */ OSM(MOD_LGUI), KC_SLSH,       KC_LEFT,       KC_DOWN,       KC_RIGHT,
