@@ -1,6 +1,20 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 
+//  _   _ _   _ _
+// | | | | |_(_) |___
+// | | | | __| | / __|
+// | |_| | |_| | \__ \.
+//  \___/ \__|_|_|___/
+
+// Clear active and regular mods and send a report.
+static void clear_all_mods(void) {
+    clear_oneshot_mods(); // Clear all active one-shot mods.
+    clear_mods(); // Clear all active regular mods.
+
+    send_keyboard_report();
+}
+
 //  _____                 _
 // |_   _|_ _ _ __     __| | __ _ _ __   ___ ___
 //   | |/ _` | '_ \   / _` |/ _` | '_ \ / __/ _ \.
@@ -46,9 +60,7 @@ enum tap_dance_codes {
 static tap dance_state[2]; // as many as the entries in `tap_dance_codes`
 
 void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
-    clear_oneshot_mods(); // Clear all active one-shot mods.
-    clear_mods(); // Clear all active regular mods.
-    send_keyboard_report();
+    clear_all_mods();
 
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
@@ -72,9 +84,7 @@ void dance_layer_1_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
-    clear_oneshot_mods(); // Clear all active one-shot mods.
-    clear_mods(); // Clear all active regular mods.
-    send_keyboard_report();
+    clear_all_mods();
 
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
@@ -328,9 +338,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MOD_OFF:
             if (record->event.pressed) {
-                clear_oneshot_mods(); // Clear all active one-shot mods.
-                clear_mods(); // Clear all active regular mods.
-                send_keyboard_report();
+                clear_all_mods();
             }
             return false;
         case PW_OS:
