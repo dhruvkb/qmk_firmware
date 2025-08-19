@@ -46,6 +46,10 @@ enum tap_dance_codes {
 static tap dance_state[2]; // as many as the entries in `tap_dance_codes`
 
 void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
+    clear_oneshot_mods(); // Clear all active one-shot mods.
+    clear_mods(); // Clear all active regular mods.
+    send_keyboard_report();
+
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
         case DOUBLE_TAP:
@@ -61,6 +65,10 @@ void dance_layer_1_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
+    clear_oneshot_mods(); // Clear all active one-shot mods.
+    clear_mods(); // Clear all active regular mods.
+    send_keyboard_report();
+
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
         case DOUBLE_TAP:
