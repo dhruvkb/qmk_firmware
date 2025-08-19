@@ -52,6 +52,9 @@ void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
 
     dance_state[0].step = dance_step(state);
     switch (dance_state[0].step) {
+        case SINGLE_HOLD:
+            layer_on(1);
+            break;
         case DOUBLE_TAP:
             layer_move(1);
             break;
@@ -60,7 +63,11 @@ void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_layer_1_reset(tap_dance_state_t *state, void *user_data) {
     wait_ms(10); // don't know why
-    switch (dance_state[0].step) {}
+    switch (dance_state[0].step) {
+        case SINGLE_HOLD:
+            layer_off(1);
+            break;
+    }
     dance_state[0].step = 0;
 }
 
@@ -71,6 +78,9 @@ void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
 
     dance_state[1].step = dance_step(state);
     switch (dance_state[1].step) {
+        case SINGLE_HOLD:
+            layer_on(2);
+            break;
         case DOUBLE_TAP:
             layer_move(2);
             break;
@@ -79,7 +89,11 @@ void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_layer_2_reset(tap_dance_state_t *state, void *user_data) {
     wait_ms(10); // don't know why
-    switch (dance_state[1].step) {}
+    switch (dance_state[1].step) {
+        case SINGLE_HOLD:
+            layer_off(2);
+            break;
+    }
     dance_state[1].step = 0;
 }
 
