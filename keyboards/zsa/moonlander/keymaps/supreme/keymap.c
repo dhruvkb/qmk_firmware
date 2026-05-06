@@ -347,7 +347,6 @@ enum custom_keycodes {
     MOD_OFF = SAFE_RANGE,
     PW_OS,
     PW_1P,
-    KC_LSQR,
 };
 
 // Handle custom key presses.
@@ -370,12 +369,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(op_password);
                 // Press enter to submit the password.
                 SEND_STRING(SS_TAP(X_ENTER));
-            }
-            return false;
-        case KC_LSQR:
-            if (record->event.pressed) {
-                // Send the left square bracket character.
-                SEND_STRING("[");
             }
             return false;
     }
