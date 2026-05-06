@@ -228,8 +228,7 @@ const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
 // Set the layer color from `ledmap`.
 void set_layer_color(int layer) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        // TODO: `RGB` is deprecated. Switch to `rgb_t` when ZSA's fork of QMK is updated.
-        RGB rgb = {
+        rgb_t rgb = {
             .r = pgm_read_byte(&ledmap[layer][i][0]),
             .g = pgm_read_byte(&ledmap[layer][i][1]),
             .b = pgm_read_byte(&ledmap[layer][i][2]),
@@ -279,10 +278,6 @@ void handle_mod_color(uint8_t mods, uint8_t r, uint8_t g, uint8_t b) {
 
 // Handle custom RGB matrix colors.
 bool rgb_matrix_indicators_user(void) {
-    if (rawhid_state.rgb_control) {
-        // An external application is controlling the RGB.
-        return false;
-    }
     if (keyboard_config.disable_layer_led) {
         // Layer specific colors are disabled.
         return false;
@@ -349,8 +344,7 @@ bool rgb_matrix_indicators_user(void) {
 // ======
 
 enum custom_keycodes {
-    RGB_SLD = SAFE_RANGE,
-    MOD_OFF,
+    MOD_OFF = SAFE_RANGE,
     PW_OS,
     PW_1P,
     KC_LSQR,
@@ -359,15 +353,6 @@ enum custom_keycodes {
 // Handle custom key presses.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RGB_SLD:
-            if (rawhid_state.rgb_control) {
-                // An external application is controlling the RGB.
-                return false;
-            }
-            if (record->event.pressed) {
-                rgblight_mode(1);
-            }
-            return false;
         case MOD_OFF:
             if (record->event.pressed) {
                 clear_all_mods();
@@ -437,10 +422,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [2] = LAYOUT_moonlander(
         AU_TOGG,            MU_TOGG,       _______,       _______,       _______,       _______,       TO(0),         /* row 1 */ TO(0),         _______,       _______,       _______,       _______,       _______,       QK_BOOT,
-        TOGGLE_LAYER_COLOR, _______,       RGB_SPI,       RGB_HUI,       RGB_SAI,       RGB_VAI,       _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        RGB_TOG,            _______,       RGB_SPD,       RGB_HUD,       RGB_SAD,       RGB_VAD,       _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        RGB_SLD,            _______,       _______,       _______,       _______,       _______,                      /* row 4 */                _______,       _______,       KC_WH_U,       KC_BTN1,       KC_MS_U,       KC_BTN2,
-        RGB_MODE_FORWARD,   _______,       _______,       _______,       _______,       /* orange → */ DESK_UP,       /* row 5 */ DESK_DOWN,     /* ← orange */ _______,       KC_WH_D,       KC_MS_L,       KC_MS_D,       KC_MS_R,
+        TOGGLE_LAYER_COLOR, _______,       RM_SPDU,       RM_HUEU,       RM_SATU,       RM_VALU,       _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        RM_TOGG,            _______,       RM_SPDD,       RM_HUED,       RM_SATD,       RM_VALD,       _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
+        _______,            _______,       _______,       _______,       _______,       _______,                      /* row 4 */                _______,       _______,       KC_WH_U,       KC_BTN1,       KC_MS_U,       KC_BTN2,
+        RM_NEXT,            _______,       _______,       _______,       _______,       /* orange → */ DESK_UP,       /* row 5 */ DESK_DOWN,     /* ← orange */ _______,       KC_WH_D,       KC_MS_L,       KC_MS_D,       KC_MS_R,
                                                                          _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
 };
