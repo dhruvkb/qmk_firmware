@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "qmk_map.h"
 
 //  _   _ _   _ _
 // | | | | |_(_) |___
@@ -351,6 +352,7 @@ enum custom_keycodes {
 
 // Handle custom key presses.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    qmk_map_on_key_event(keycode, record);
     switch (keycode) {
         case MOD_OFF:
             if (record->event.pressed) {
@@ -393,6 +395,12 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         }
     }
+    qmk_map_on_mods();
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    qmk_map_on_layer(state);
+    return state;
 }
 
 // TODO: Update keycodes for mouse keys when ZSA's fork of QMK is updated.

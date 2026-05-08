@@ -1,3 +1,7 @@
+# Raw HID for qmk_map TUI.
+RAW_ENABLE = yes
+SRC += qmk_map.c
+
 # Auto Shift: https://docs.qmk.fm/features/auto_shift
 AUTO_SHIFT_ENABLE = yes
 
