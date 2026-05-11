@@ -377,20 +377,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-// Handle modifier key releases to ensure they are unregistered properly.
+// Handle modifier key releases to ensure pending one-shot mods don't leak.
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case OSM(MOD_LALT):
         case OSM(MOD_LSFT):
         case OSM(MOD_LCTL):
         case OSM(MOD_LGUI): {
-            uint8_t mask = 0;
-            if (keycode == OSM(MOD_LALT))  mask = MOD_MASK_ALT;
-            if (keycode == OSM(MOD_LSFT))  mask = MOD_MASK_SHIFT;
-            if (keycode == OSM(MOD_LCTL))  mask = MOD_MASK_CTRL;
-            if (keycode == OSM(MOD_LGUI))  mask = MOD_MASK_GUI;
-            if (!record->event.pressed && (keyboard_report->mods & mask)) {
-                unregister_mods(mask);
+            if (!record->event.pressed) {
+                // When a held OSM is released, QMK's core has already called
+                // unregister_mods() and sent a report. That report carried any
+                // pending one-shot mods along to the host. Detect the leak and
+                // send a follow-up report without the OSMs, then restore them
+                // so they still apply to the next non-mod keypress.
+                uint8_t saved_osm = get_oneshot_mods();
+                if (saved_osm && (keyboard_report->mods & saved_osm)) {
+                    clear_oneshot_mods();
+                    send_keyboard_report();
+                    set_oneshot_mods(saved_osm);
+                }
             }
             break;
         }
