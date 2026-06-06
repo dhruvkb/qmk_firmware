@@ -9,18 +9,16 @@ CAPS_WORD_ENABLE = yes
 
 # Passwords
 
-# Abort immediately if OS_PASSWORD or OP_PASSWORD weren’t provided.
-ifndef OS_PASSWORD
-  $(error OS_PASSWORD must be defined in environment variables.)
+# Abort immediately if OS_PASSWORD_BYTES or OP_PASSWORD_BYTES weren’t provided.
+ifndef OS_PASSWORD_BYTES
+  $(error OS_PASSWORD_BYTES must be defined in environment variables.)
 endif
-ifndef OP_PASSWORD
-  $(error OP_PASSWORD must be defined in environment variables.)
+ifndef OP_PASSWORD_BYTES
+  $(error OP_PASSWORD_BYTES must be defined in environment variables.)
 endif
 
-# Inject the text as a C pre-processor definition
-# Escape any pipe characters in OS_PASSWORD for the preprocessor definition.
-OS_PASSWORD_ESCAPED := $(subst |,\|,$(OS_PASSWORD))
-EXTRAFLAGS += -DOS_PASSWORD=\"$(OS_PASSWORD_ESCAPED)\"
-# Escape any pipe characters in OP_PASSWORD for the preprocessor definition.
-OP_PASSWORD_ESCAPED := $(subst |,\|,$(OP_PASSWORD))
-EXTRAFLAGS += -DOP_PASSWORD=\"$(OP_PASSWORD_ESCAPED)\"
+# Inject the bytes as C pre-processor definitions. The values are comma-
+# separated hex byte literals (e.g. 0x62,0x42,...) so they survive shell
+# quoting unscathed regardless of what characters appear in the password.
+EXTRAFLAGS += -DOS_PASSWORD_BYTES=$(OS_PASSWORD_BYTES)
+EXTRAFLAGS += -DOP_PASSWORD_BYTES=$(OP_PASSWORD_BYTES)

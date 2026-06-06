@@ -310,16 +310,16 @@ bool rgb_matrix_indicators_user(void) {
 // |  __/ (_| \__ \__ \\ V  V / (_) | | | (_| \__ \.
 // |_|   \__,_|___/___/ \_/\_/ \___/|_|  \__,_|___/
 
-#ifdef OS_PASSWORD
-    static const char os_password[] PROGMEM = OS_PASSWORD;
+#ifdef OS_PASSWORD_BYTES
+    static const char os_password[] PROGMEM = { OS_PASSWORD_BYTES, 0x00 };
 #else
-    #error "OS_PASSWORD must be defined in environment variables."
+    #error "OS_PASSWORD_BYTES must be defined in environment variables."
 #endif
 
-#ifdef OP_PASSWORD
-    static const char op_password[] PROGMEM = OP_PASSWORD;
+#ifdef OP_PASSWORD_BYTES
+    static const char op_password[] PROGMEM = { OP_PASSWORD_BYTES, 0x00 };
 #else
-    #error "OP_PASSWORD must be defined in environment variables."
+    #error "OP_PASSWORD_BYTES must be defined in environment variables."
 #endif
 
 //  _  __
