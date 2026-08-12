@@ -424,7 +424,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-// TODO: Update keycodes for mouse keys when ZSA's fork of QMK is updated.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
         KC_GRV,        KC_1,          KC_2,          KC_3,          KC_4,          KC_5,          TD(LAYER_3),   /* row 1 */ XXXXXXX,       KC_6,          KC_7,          KC_8,          KC_9,           KC_0,          KC_MINS,
@@ -434,13 +433,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         OSM(MOD_LALT), KC_LBRC,       KC_RBRC,       XXXXXXX,       TD(LAYER_1),   /* orange → */ RAYCAST,       /* row 5 */ WIN_MNG,       /* ← orange */ TD(LAYER_2),   KC_SLSH,       KC_LEFT,        KC_DOWN,       KC_RGHT,
                                                                     KC_SPACE,      OSM(MOD_LGUI), OSM(MOD_LCTL), /* thumb */ OSM(MOD_LALT), OSM(MOD_LSFT), KC_BSPC
     ),
+    // Left thumb layer: Contains programming symbols and mouse control.
     [1] = LAYOUT_moonlander(
-        _______,            KC_F1,         KC_F2,         KC_F3,         KC_F4,         KC_F5,         TO(0),         /* row 1 */ TO(0),         KC_F6,         KC_F7,         KC_F8,         KC_F9,         KC_F10,        _______,
-        _______,            _______,       _______,       _______,       KC_VOLU,       KC_F15,        _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        _______,            _______,       _______,       _______,       KC_VOLD,       KC_F14,        _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        _______,            _______,       _______,       _______,       KC_MUTE,       _______,                      /* row 4 */                _______,       _______,       _______,       _______,       _______,       _______,
-        _______,            _______,       _______,       _______,       _______,       /* orange → */ PW_OS,         /* row 5 */ PW_1P,         /* ← orange */ _______,       _______,       KC_MPRV,       KC_MPLY,       KC_MNXT,
-                                                                         _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       KC_UNDS,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       /* row 2 */ XXXXXXX,       KC_TILD,       KC_PPLS,       KC_PMNS,       KC_PAST,        KC_PSLS,       KC_PIPE,
+        XXXXXXX,       TD(PRN),       TD(CBR),       TD(BRC),       TD(ABK),       XXXXXXX,       XXXXXXX,       /* row 3 */ XXXXXXX,       KC_EXLM,       KC_HASH,       KC_UNDS,       KC_AMPR,        KC_COLN,       KC_DQUO,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,                      /* row 4 */                KC_AT,         KC_DLR,        MS_WHLD,       MS_BTN1,        MS_UP,         MS_BTN2,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ PW_OS,         /* row 5 */ PW_1P,         /* ← orange */ TO(0),         MS_WHLU,       MS_LEFT,        MS_DOWN,       MS_RGHT,
+                                                                    _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
     [2] = LAYOUT_moonlander(
         AU_TOGG,            MU_TOGG,       _______,       _______,       _______,       _______,       TO(0),         /* row 1 */ TO(0),         _______,       _______,       _______,       _______,       _______,       QK_BOOT,
