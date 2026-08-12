@@ -25,6 +25,7 @@ enum {
     RSP_KEY_EVENT    = 0x84,
     RSP_MODS         = 0x85,
     RSP_PONG         = 0x86,
+    RSP_CAPS_WORD    = 0x87,
 };
 
 #define LAYER_COUNT     4
@@ -57,6 +58,7 @@ static const uint8_t matrix_to_index[MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 static uint8_t last_mods = 0xff;  // force a push on first call
+static int8_t  last_caps_word = -1;  // force a push on first call
 
 static void send_buf(const uint8_t *buf) {
     raw_hid_send((uint8_t *)buf, RAW_EPSIZE);
@@ -83,6 +85,13 @@ static void push_mods(uint8_t mods) {
     uint8_t buf[RAW_EPSIZE] = {0};
     buf[0] = RSP_MODS;
     buf[1] = mods;
+    send_buf(buf);
+}
+
+static void push_caps_word(bool on) {
+    uint8_t buf[RAW_EPSIZE] = {0};
+    buf[0] = RSP_CAPS_WORD;
+    buf[1] = on ? 1 : 0;
     send_buf(buf);
 }
 
@@ -146,6 +155,8 @@ static void send_snapshot(void) {
     push_layer(get_highest_layer(layer_state));
     push_mods(get_mods() | get_oneshot_mods());
     last_mods = get_mods() | get_oneshot_mods();
+    push_caps_word(is_caps_word_on());
+    last_caps_word = is_caps_word_on() ? 1 : 0;
 }
 
 void raw_hid_receive(uint8_t *data, uint8_t length) {
@@ -188,12 +199,22 @@ void qmk_map_on_mods(void) {
     }
 }
 
+void qmk_map_on_caps_word(void) {
+    int8_t cur = is_caps_word_on() ? 1 : 0;
+    if (cur != last_caps_word) {
+        last_caps_word = cur;
+        push_caps_word(cur != 0);
+    }
+}
+
 // Polled every matrix scan. Catches mod-state changes that bypass
 // post_process_record_user — notably keys whose process_record_user returns
 // false (e.g. MOD_OFF in supreme calls clear_all_mods then `return false`,
-// so post_process_record_user is never invoked).
+// so post_process_record_user is never invoked). Also catches caps-word
+// transitions since QMK toggles it inside its own internal hook.
 void housekeeping_task_user(void) {
     qmk_map_on_mods();
+    qmk_map_on_caps_word();
 }
 
 #endif  // RAW_ENABLE

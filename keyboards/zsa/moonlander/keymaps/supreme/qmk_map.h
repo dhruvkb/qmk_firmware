@@ -11,10 +11,12 @@
 void qmk_map_on_layer(layer_state_t state);
 void qmk_map_on_key_event(uint16_t keycode, keyrecord_t *record);
 void qmk_map_on_mods(void);
+void qmk_map_on_caps_word(void);
 #else
 static inline void qmk_map_on_layer(layer_state_t state) { (void)state; }
 static inline void qmk_map_on_key_event(uint16_t keycode, keyrecord_t *record) {
     (void)keycode; (void)record;
 }
 static inline void qmk_map_on_mods(void) {}
+static inline void qmk_map_on_caps_word(void) {}
 #endif
