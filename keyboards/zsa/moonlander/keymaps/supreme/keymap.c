@@ -475,7 +475,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] = LAYOUT_moonlander(
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLU,       KC_MPRV,       BRIGHTU,       /* row 2 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLD,       KC_MNXT,       BRIGHTU,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLD,       KC_MNXT,       BRIGHTD,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_MUTE,       KC_MPLY,                      /* row 4 */                XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
                                                                     _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
