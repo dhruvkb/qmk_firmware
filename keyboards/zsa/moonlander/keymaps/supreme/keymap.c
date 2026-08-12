@@ -442,12 +442,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ PW_OS,         /* row 5 */ PW_1P,         /* ← orange */ TO(0),         MS_WHLU,       MS_LEFT,        MS_DOWN,       MS_RGHT,
                                                                     _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
+    // Right thumb layer: Contains volume, brightness and media controls. Also controls desk height via Raycast key-combos.
     [2] = LAYOUT_moonlander(
-        AU_TOGG,            MU_TOGG,       _______,       _______,       _______,       _______,       TO(0),         /* row 1 */ TO(0),         _______,       _______,       _______,       _______,       _______,       QK_BOOT,
-        TOGGLE_LAYER_COLOR, _______,       RM_SPDU,       RM_HUEU,       RM_SATU,       RM_VALU,       _______,       /* row 2 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        RM_TOGG,            _______,       RM_SPDD,       RM_HUED,       RM_SATD,       RM_VALD,       _______,       /* row 3 */ _______,       _______,       _______,       _______,       _______,       _______,       _______,
-        _______,            _______,       _______,       _______,       _______,       _______,                      /* row 4 */                _______,       _______,       KC_WH_U,       KC_BTN1,       KC_MS_U,       KC_BTN2,
-        RM_NEXT,            _______,       _______,       _______,       _______,       /* orange → */ DESK_UP,       /* row 5 */ DESK_DOWN,     /* ← orange */ _______,       KC_WH_D,       KC_MS_L,       KC_MS_D,       KC_MS_R,
-                                                                         _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLU,       KC_MPRV,       BRIGHTU,       /* row 2 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLD,       KC_MNXT,       BRIGHTU,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_MUTE,       KC_MPLY,                      /* row 4 */                XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+                                                                    _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
 };
