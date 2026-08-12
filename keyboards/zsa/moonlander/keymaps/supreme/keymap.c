@@ -353,11 +353,10 @@ bool rgb_matrix_indicators_user(void) {
 
 // Layer 0
 #define RAYCAST OSM(MOD_LCTL | MOD_LGUI) // Ctrl ⌃ + Cmd ⌘
-#define WIN_MGMT OSM(MOD_LCTL | MOD_LALT) // Ctrl ⌃ + Opt ⌥
-
-// Layer 1
-#define DESK_UP LALT(LGUI(LCTL(KC_UP))) // Opt ⌥ + Cmd ⌘ + Ctrl ⌃ + Up Arrow
-#define DESK_DOWN LALT(LGUI(LCTL(KC_DOWN))) // Opt ⌥ + Cmd ⌘ + Ctrl ⌃ + Down Arrow
+#define WIN_MNG OSM(MOD_LCTL | MOD_LALT) // Ctrl ⌃ + Opt ⌥
+#define BRIGHTU KC_F15
+#define BRIGHTD KC_F14
+#define LC_TOGG TOGGLE_LAYER_COLOR
 
 // Custom
 // ======
