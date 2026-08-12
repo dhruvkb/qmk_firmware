@@ -288,7 +288,6 @@ void handle_mod_color(uint8_t mods, uint8_t r, uint8_t g, uint8_t b) {
     if (mods & MOD_MASK_GUI) {
         // Cmd ⌘ is present in two locations to enable key combinations with arrows.
         rgb_matrix_set_color(33, r, g, b); // left thumb cluster
-        rgb_matrix_set_color(60, r, g, b); // column 10
     }
     if (mods & MOD_MASK_CTRL) {
         rgb_matrix_set_color(34, r, g, b);
