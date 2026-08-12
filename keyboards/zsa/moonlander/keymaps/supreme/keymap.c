@@ -393,6 +393,14 @@ enum custom_keycodes {
     MOD_OFF = SAFE_RANGE,
     PW_OS,
     PW_1P,
+    PRINT,
+    CONSOLE,
+    HYP_ARR,
+    EQL_ARR,
+    X2_EQL,
+    X3_EQL,
+    X2_AMPR,
+    X2_PIPE,
 };
 
 // Handle custom key presses.
@@ -416,6 +424,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING(op_password);
                 // Press enter to submit the password.
                 SEND_STRING(SS_TAP(X_ENTER));
+            }
+            return false;
+        case PRINT:
+            if (record->event.pressed) {
+                // Hammerspoon will pair the bracket and position the cursor.
+                SEND_STRING("print(");
+            }
+            return false;
+        case CONSOLE:
+        if (record->event.pressed) {
+                // Hammerspoon will pair the bracket and position the cursor.
+                SEND_STRING("console.log(");
+            }
+            return false;
+        case HYP_ARR:
+            if (record->event.pressed) {
+                SEND_STRING("->");
+            }
+            return false;
+        case EQL_ARR:
+            if (record->event.pressed) {
+                SEND_STRING("=>");
+            }
+            return false;
+        case X2_EQL:
+            if (record->event.pressed) {
+                SEND_STRING("==");
+            }
+            return false;
+        case X3_EQL:
+            if (record->event.pressed) {
+                SEND_STRING("===");
+            }
+            return false;
+        case X2_AMPR:
+            if (record->event.pressed) {
+                SEND_STRING("&&");
+            }
+            return false;
+        case X2_PIPE:
+            if (record->event.pressed) {
+                SEND_STRING("||");
             }
             return false;
     }
