@@ -201,56 +201,79 @@ void keyboard_post_init_user(void) {
 #define COL_VIO 0x7f, 0x00, 0xff
 #define COL_AZR 0x00, 0x7f, 0xff
 
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
+// Map each physical LED to its position in `LAYOUT_moonlander`'s argument
+// list. Lets `ledmap` be written in the same row-by-row order as the
+// keymaps below; `set_layer_color` scatters the entries to the right LEDs
+// at runtime.
+//
+// Hardware lays the LEDs out column-by-column (top to bottom on the left
+// half, then rightmost-column to col 8 on the right half), with the thumbs
+// and the wide "orange" key tacked on at the end of each half. The keymap,
+// in contrast, is read row-by-row.
+#define KEYS_PER_LAYER 72
+static const uint8_t PROGMEM led_to_layout[RGB_MATRIX_LED_COUNT] = {
+    // Left half.
+     0, 14, 28, 42, 54, // col 1
+     1, 15, 29, 43, 55, // col 2
+     2, 16, 30, 44, 56, // col 3
+     3, 17, 31, 45, 57, // col 4
+     4, 18, 32, 46, 58, // col 5
+     5, 19, 33, 47,     // col 6
+     6, 20, 34,         // col 7
+    66, 67, 68,         // left thumb
+    59,                 // left orange
+    // Right half.
+    13, 27, 41, 53, 65, // col 14
+    12, 26, 40, 52, 64, // col 13
+    11, 25, 39, 51, 63, // col 12
+    10, 24, 38, 50, 62, // col 11
+     9, 23, 37, 49, 61, // col 10
+     8, 22, 36, 48,     // col 9
+     7, 21, 35,         // col 8
+    71, 70, 69,         // right thumb
+    60,                 // right orange
+};
+
+// Each entry corresponds to a key in `LAYOUT_moonlander` argument order
+// (rows top-to-bottom, left half then right half, thumbs last), so the
+// rows here line up visually with the keymaps below.
+const uint8_t PROGMEM ledmap[][KEYS_PER_LAYER][3] = {
     [1] = {
-        /* column  1    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  2    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  3    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  4    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  5    */ {COL_AQU}, {COL_RNG}, {COL_RNG}, {COL_RNG}, {COL_BLK},
-        /* column  6    */ {COL_AQU}, {COL_YLO}, {COL_YLO}, {COL_BLK},
-        /* column  7    */ {COL_GRN}, {COL_BLK}, {COL_BLK},
-        /* left thumb   */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* left orange  */ {COL_WHT},
-        /* column 14    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
-        /* column 13    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
-        /* column 12    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLU},
-        /* column 11    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column 10    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  9    */ {COL_AQU}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  8    */ {COL_RED}, {COL_BLK}, {COL_BLK},
-        /* right thumb  */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* right orange */ {COL_WHT}
+        {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_BLK},     {COL_BLK},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_AZR},     {COL_AZR},     {COL_AZR},     {COL_AZR},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_AZR},     {COL_AZR},     {COL_AZR},     {COL_AZR},
+                                                                    {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
     },
     [2] = {
-        /* column  1    */ {COL_CTR}, {COL_VIO}, {COL_VIO}, {COL_BLK}, {COL_VIO},
-        /* column  2    */ {COL_CTR}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  3    */ {COL_BLK}, {COL_VIO}, {COL_VIO}, {COL_BLK}, {COL_BLK},
-        /* column  4    */ {COL_BLK}, {COL_VIO}, {COL_VIO}, {COL_BLK}, {COL_BLK},
-        /* column  5    */ {COL_BLK}, {COL_VIO}, {COL_VIO}, {COL_BLK}, {COL_BLK},
-        /* column  6    */ {COL_BLK}, {COL_VIO}, {COL_VIO}, {COL_BLK},
-        /* column  7    */ {COL_RED}, {COL_BLK}, {COL_BLK},
-        /* left thumb   */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* left orange  */ {COL_WHT},
-        /* column 14    */ {COL_RED}, {COL_BLK}, {COL_BLK}, {COL_AQU}, {COL_AQU},
-        /* column 13    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_AQU}, {COL_AQU},
-        /* column 12    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_AQU}, {COL_AQU},
-        /* column 11    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_AQU}, {COL_AQU},
-        /* column 10    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  9    */ {COL_BLK}, {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* column  8    */ {COL_GRN}, {COL_BLK}, {COL_BLK},
-        /* right thumb  */ {COL_BLK}, {COL_BLK}, {COL_BLK},
-        /* right orange */ {COL_WHT}
+        {COL_BLK},     {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},     {COL_YLO},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},     {COL_YLO},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+                                                                    {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
+    },
+    [3] = {
+        {COL_CTR},     {COL_CTR},     {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},
+        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+                                                                    {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
     },
 };
 
-// Set the layer color from `ledmap`.
+// Set the layer color from `ledmap`. The ledmap is laid out in
+// `LAYOUT_moonlander` argument order; `led_to_layout` translates each
+// physical LED index to its slot in that order.
 void set_layer_color(int layer) {
     for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        uint8_t pos = pgm_read_byte(&led_to_layout[i]);
         rgb_t rgb = {
-            .r = pgm_read_byte(&ledmap[layer][i][0]),
-            .g = pgm_read_byte(&ledmap[layer][i][1]),
-            .b = pgm_read_byte(&ledmap[layer][i][2]),
+            .r = pgm_read_byte(&ledmap[layer][pos][0]),
+            .g = pgm_read_byte(&ledmap[layer][pos][1]),
+            .b = pgm_read_byte(&ledmap[layer][pos][2]),
         };
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
