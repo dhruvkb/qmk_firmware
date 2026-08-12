@@ -229,27 +229,19 @@ static const uint8_t PROGMEM led_to_layout[RGB_MATRIX_LED_COUNT] = {
 // rows here line up visually with the keymaps below.
 const uint8_t PROGMEM ledmap[][KEYS_PER_LAYER][3] = {
     [1] = {
-        {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_BLK},     {COL_BLK},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_AZR},     {COL_AZR},     {COL_AZR},     {COL_AZR},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_AZR},     {COL_AZR},     {COL_AZR},     {COL_AZR},
-                                                                    {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
-    },
-    [2] = {
-        {COL_BLK},     {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},     {COL_YLO},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},     {COL_YLO},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_MAG},     {COL_AQU},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_BLK},     {COL_BLK},     /* row 2 */ {COL_BLK},     {COL_AQU},     {COL_AQU},     {COL_AQU},     {COL_AQU},     {COL_AQU},     {COL_BLK},
+        {COL_BLK},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_GRN},     {COL_BLK},     {COL_BLK},     /* row 3 */ {COL_BLK},     {COL_YLO},     {COL_YLO},     {COL_YLO},     {COL_YLO},     {COL_BLK},     {COL_BLK},
+        {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_AZR},     {COL_AZR},     {COL_BLK},                    /* row 4 */                {COL_MAG},     {COL_MAG},     {COL_MAG},     {COL_MAG},     {COL_BLK},     {COL_BLK},
         {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
                                                                     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
     },
-    [3] = {
-        {COL_CTR},     {COL_CTR},     {COL_BLK},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},
-        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 2 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 3 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},                    /* row 4 */                {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
-        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+    [2] = {
+        {COL_CTR},     {COL_CTR},     {COL_WHT},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* row 1 */ {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},
+        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 2 */ {COL_YLO},     {COL_MAG},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_CTR},     {COL_BLK},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_RNG},     {COL_BLK},     /* row 3 */ {COL_YLO},     {COL_MAG},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},                    /* row 4 */                {COL_MAG},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_BLK},
+        {COL_VIO},     {COL_BLK},     {COL_BLK},     {COL_BLK},     {COL_RED},     /* orange → */ {COL_WHT},     /* row 5 */ {COL_WHT},     /* ← orange */ {COL_RED},     {COL_BLK},     {COL_AZR},     {COL_AZR},     {COL_AZR},
                                                                     {COL_BLK},     {COL_BLK},     {COL_BLK},     /* thumb */ {COL_BLK},     {COL_BLK},     {COL_BLK}
     },
 };
@@ -489,38 +481,34 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_moonlander(
-        KC_GRV,        KC_1,          KC_2,          KC_3,          KC_4,          KC_5,          TD(LAYER_3),   /* row 1 */ XXXXXXX,       KC_6,          KC_7,          KC_8,          KC_9,           KC_0,          KC_MINS,
-        KC_TAB,        KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          MOD_OFF,       /* row 2 */ KC_EQL,        KC_Y,          KC_U,          KC_I,          KC_O,           KC_P,          KC_BSLS,
-        CW_TOGG,       KC_A,          KC_S,          KC_D,          KC_F,          KC_G,          KC_ESC,        /* row 3 */ KC_DEL,        KC_H,          KC_J,          KC_K,          KC_L,           KC_SCLN,       KC_QUOT,
+        KC_GRV,        KC_1,          KC_2,          KC_3,          KC_4,          KC_5,          XXXXXXX,       /* row 1 */ XXXXXXX,       KC_6,          KC_7,          KC_8,          KC_9,           KC_0,          KC_MINS,
+        KC_TAB,        KC_Q,          KC_W,          KC_E,          KC_R,          KC_T,          MOD_OFF,       /* row 2 */ XXXXXXX,       KC_Y,          KC_U,          KC_I,          KC_O,           KC_P,          KC_BSLS,
+        CW_TOGG,       KC_A,          KC_S,          KC_D,          KC_F,          KC_G,          KC_ESC,        /* row 3 */ KC_EQL,        KC_H,          KC_J,          KC_K,          KC_L,           KC_SCLN,       KC_QUOT,
         OSM(MOD_LSFT), KC_Z,          KC_X,          KC_C,          KC_V,          KC_B,                         /* row 4 */                KC_N,          KC_M,          KC_COMM,       KC_DOT,         KC_UP,         KC_ENT,
         OSM(MOD_LALT), KC_LBRC,       KC_RBRC,       XXXXXXX,       TD(LAYER_1),   /* orange → */ RAYCAST,       /* row 5 */ WIN_MNG,       /* ← orange */ TD(LAYER_2),   KC_SLSH,       KC_LEFT,        KC_DOWN,       KC_RGHT,
                                                                     KC_SPACE,      OSM(MOD_LGUI), OSM(MOD_LCTL), /* thumb */ OSM(MOD_LALT), OSM(MOD_LSFT), KC_BSPC
     ),
-    // Left thumb layer: Contains programming symbols and mouse control.
+    // Left thumb layer: Contains
+    // - Shifted number keys
+    // - Programming symbols and constructs
     [1] = LAYOUT_moonlander(
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       KC_UNDS,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       /* row 2 */ XXXXXXX,       KC_TILD,       KC_PPLS,       KC_PMNS,       KC_PAST,        KC_PSLS,       KC_PIPE,
-        XXXXXXX,       TD(PRN),       TD(CBR),       TD(BRC),       TD(ABK),       XXXXXXX,       XXXXXXX,       /* row 3 */ XXXXXXX,       KC_EXLM,       KC_HASH,       KC_UNDS,       KC_AMPR,        KC_COLN,       KC_DQUO,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,                      /* row 4 */                KC_AT,         KC_DLR,        MS_WHLD,       MS_BTN1,        MS_UP,         MS_BTN2,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ PW_OS,         /* row 5 */ PW_1P,         /* ← orange */ TO(0),         MS_WHLU,       MS_LEFT,        MS_DOWN,       MS_RGHT,
+        _______,       KC_EXLM,       KC_AT,         KC_HASH,       KC_DLR,        KC_PERC,       XXXXXXX,       /* row 1 */ XXXXXXX,       KC_CIRC,       KC_AMPR,       KC_PAST,       KC_LPRN,        KC_RPRN,       KC_UNDS,
+        _______,       KC_RPRN,       KC_RCBR,       KC_RBRC,       KC_RABK,       XXXXXXX,       XXXXXXX,       /* row 2 */ XXXXXXX,       KC_PPLS,       KC_PMNS,       KC_PAST,       KC_PSLS,        KC_PERC,       KC_PIPE,
+        _______,       TD(PRN),       TD(CBR),       TD(BRC),       TD(ABK),       XXXXXXX,       _______,       /* row 3 */ _______,       KC_EXLM,       KC_AT,         KC_HASH,       KC_DLR,         KC_COLN,       KC_DQUO,
+        _______,       PRINT,         CONSOLE,       HYP_ARR,       EQL_ARR,       XXXXXXX,                      /* row 4 */                X2_EQL,        X3_EQL,        X2_AMPR,       X2_PIPE,        _______,       _______,
+        _______,       _______,       _______,       XXXXXXX,       TO(0),         /* orange → */ PW_OS,         /* row 5 */ PW_1P,         /* ← orange */ TO(0),         KC_QUES,       _______,        _______,       _______,
                                                                     _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
-    // Right thumb layer: Contains volume, brightness and media controls. Also controls desk height via Raycast key-combos.
+    // Right thumb layer: Contains
+    // - Moonlander settings
+    // - Volume, brightness and media controls
+    // - Desk movement Raycast commands
     [2] = LAYOUT_moonlander(
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLU,       KC_MPRV,       BRIGHTU,       /* row 2 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_VOLD,       KC_MNXT,       BRIGHTD,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       KC_MUTE,       KC_MPLY,                      /* row 4 */                XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-                                                                    _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
-    ),
-    // Contains controls for this keyboard.
-    [3] = LAYOUT_moonlander(
-        AU_TOGG,       MU_TOGG,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       QK_BOOT,
-        LC_TOGG,       XXXXXXX,       RM_SPDU,       RM_HUEU,       RM_SATU,       RM_VALU,       XXXXXXX,       /* row 2 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        RM_TOGG,       XXXXXXX,       RM_SPDD,       RM_HUED,       RM_SATD,       RM_VALD,       XXXXXXX,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        RM_PREV,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,                      /* row 4 */                XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
-        RM_NEXT,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        AU_TOGG,       MU_TOGG,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       QK_BOOT,
+        LC_TOGG,       XXXXXXX,       RM_SPDU,       RM_HUEU,       RM_SATU,       RM_VALU,       XXXXXXX,       /* row 2 */ BRIGHTU,       KC_VOLU,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_TOGG,       XXXXXXX,       RM_SPDD,       RM_HUED,       RM_SATD,       RM_VALD,       XXXXXXX,       /* row 3 */ BRIGHTD,       KC_VOLD,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_PREV,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,                      /* row 4 */                KC_MUTE,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_NEXT,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       KC_MPRV,        KC_MPLY,       KC_MNXT,
                                                                     _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
 };
