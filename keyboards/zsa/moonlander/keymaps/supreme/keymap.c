@@ -451,4 +451,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
                                                                     _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
     ),
+    // Contains controls for this keyboard.
+    [3] = LAYOUT_moonlander(
+        AU_TOGG,       MU_TOGG,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* row 1 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       QK_BOOT,
+        LC_TOGG,       XXXXXXX,       RM_SPDU,       RM_HUEU,       RM_SATU,       RM_VALU,       XXXXXXX,       /* row 2 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_TOGG,       XXXXXXX,       RM_SPDD,       RM_HUED,       RM_SATD,       RM_VALD,       XXXXXXX,       /* row 3 */ XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_PREV,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,                      /* row 4 */                XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+        RM_NEXT,       XXXXXXX,       XXXXXXX,       XXXXXXX,       TO(0),         /* orange → */ LCAG(KC_UP),   /* row 5 */ LCAG(KC_DOWN), /* ← orange */ TO(0),         XXXXXXX,       XXXXXXX,        XXXXXXX,       XXXXXXX,
+                                                                    _______,       _______,       _______,       /* thumb */ _______,       _______,       _______
+    ),
 };
