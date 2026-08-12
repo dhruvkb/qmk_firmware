@@ -330,6 +330,12 @@ bool rgb_matrix_indicators_user(void) {
         case 2:
             set_layer_color(2);
             break;
+        case 3:
+            set_layer_color(3);
+            break;
+        case 4:
+            set_layer_color(4);
+            break;
         default:
             if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
                 // The keyboard has asked for the lights to be turned off.
