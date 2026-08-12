@@ -121,6 +121,9 @@ via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
 
+# Superpowers
+.superpowers/
+
 # ZSA Specific ignores
 /docs/**
 /users/**
