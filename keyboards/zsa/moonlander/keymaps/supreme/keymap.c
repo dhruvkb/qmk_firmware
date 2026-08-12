@@ -57,7 +57,6 @@ enum tap_dance_codes {
     // Layers
     LAYER_1,
     LAYER_2,
-    LAYER_3,
 
     // Brackets
     PRN,
@@ -66,7 +65,7 @@ enum tap_dance_codes {
     ABK,
 };
 
-static tap dance_state[4]; // one more than number of layers in `tap_dance_codes`
+static tap dance_state[3]; // one more than number of layers in `tap_dance_codes`
 
 void dance_layer_finished(tap_dance_state_t *state, void *user_data, int layer) {
     clear_all_mods();
@@ -116,14 +115,6 @@ void dance_layer_2_reset(tap_dance_state_t *state, void *user_data) {
     dance_layer_reset(state, user_data, 2);
 }
 
-void dance_layer_3_finished(tap_dance_state_t *state, void *user_data) {
-    dance_layer_finished(state, user_data, 3);
-}
-
-void dance_layer_3_reset(tap_dance_state_t *state, void *user_data) {
-    dance_layer_reset(state, user_data, 3);
-}
-
 void dance_bracket(tap_dance_state_t *state, void *user_data, uint16_t left, uint16_t right) {
     uint8_t step = dance_step(state);
     switch (step) {
@@ -155,7 +146,6 @@ void dance_abk(tap_dance_state_t *state, void *user_data) {
 tap_dance_action_t tap_dance_actions[] = {
     [LAYER_1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_1_finished, dance_layer_1_reset),
     [LAYER_2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_2_finished, dance_layer_2_reset),
-    [LAYER_3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_3_finished, dance_layer_3_reset),
 
     [PRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_prn, NULL),
     [CBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cbr, NULL),
@@ -329,12 +319,6 @@ bool rgb_matrix_indicators_user(void) {
             break;
         case 2:
             set_layer_color(2);
-            break;
-        case 3:
-            set_layer_color(3);
-            break;
-        case 4:
-            set_layer_color(4);
             break;
         default:
             if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
