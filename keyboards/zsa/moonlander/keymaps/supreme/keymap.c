@@ -57,6 +57,7 @@ enum tap_dance_codes {
     // Layers
     LAYER_1,
     LAYER_2,
+    LAYER_3,
 
     // Brackets
     PRN,
@@ -65,13 +66,17 @@ enum tap_dance_codes {
     ABK,
 };
 
-static tap dance_state[6]; // as many as the entries in `tap_dance_codes`
+static tap dance_state[4]; // one more than number of layers in `tap_dance_codes`
 
-void dance_layer_finished(tap_dance_state_t *state, void *user_data, int idx, int layer) {
+void dance_layer_finished(tap_dance_state_t *state, void *user_data, int layer) {
     clear_all_mods();
 
-    dance_state[idx].step = dance_step(state);
-    switch (dance_state[idx].step) {
+    dance_state[layer].step = dance_step(state);
+    switch (dance_state[layer].step) {
+        case SINGLE_TAP:
+            // Arm a one-shot layer to be active for exactly the next keypress.
+            set_oneshot_layer(layer, ONESHOT_START);
+            break;
         case SINGLE_HOLD:
             layer_on(layer);
             break;
@@ -81,30 +86,42 @@ void dance_layer_finished(tap_dance_state_t *state, void *user_data, int idx, in
     }
 }
 
-void dance_layer_reset(tap_dance_state_t *state, void *user_data, int idx, int layer) {
+void dance_layer_reset(tap_dance_state_t *state, void *user_data, int layer) {
     wait_ms(10); // don't know why
-    switch (dance_state[idx].step) {
+    switch (dance_state[layer].step) {
+        case SINGLE_TAP:
+            // Mark the one-shot layer as "primed" now that the key is up.
+            clear_oneshot_layer_state(ONESHOT_PRESSED);
+            break;
         case SINGLE_HOLD:
             layer_off(layer);
             break;
     }
-    dance_state[idx].step = 0;
+    dance_state[layer].step = 0;
 }
 
 void dance_layer_1_finished(tap_dance_state_t *state, void *user_data) {
-    dance_layer_finished(state, user_data, 0, 1);
+    dance_layer_finished(state, user_data, 1);
 }
 
 void dance_layer_1_reset(tap_dance_state_t *state, void *user_data) {
-    dance_layer_reset(state, user_data, 0, 1);
+    dance_layer_reset(state, user_data, 1);
 }
 
 void dance_layer_2_finished(tap_dance_state_t *state, void *user_data) {
-    dance_layer_finished(state, user_data, 1, 2);
+    dance_layer_finished(state, user_data, 2);
 }
 
 void dance_layer_2_reset(tap_dance_state_t *state, void *user_data) {
-    dance_layer_reset(state, user_data, 1, 2);
+    dance_layer_reset(state, user_data, 2);
+}
+
+void dance_layer_3_finished(tap_dance_state_t *state, void *user_data) {
+    dance_layer_finished(state, user_data, 3);
+}
+
+void dance_layer_3_reset(tap_dance_state_t *state, void *user_data) {
+    dance_layer_reset(state, user_data, 3);
 }
 
 void dance_bracket(tap_dance_state_t *state, void *user_data, uint16_t left, uint16_t right) {
@@ -138,6 +155,7 @@ void dance_abk(tap_dance_state_t *state, void *user_data) {
 tap_dance_action_t tap_dance_actions[] = {
     [LAYER_1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_1_finished, dance_layer_1_reset),
     [LAYER_2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_2_finished, dance_layer_2_reset),
+    [LAYER_3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_layer_3_finished, dance_layer_3_reset),
 
     [PRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_prn, NULL),
     [CBR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cbr, NULL),
